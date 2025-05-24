@@ -7,6 +7,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Это критически важно для записи в gh-pages
+
     steps:
       - uses: actions/checkout@v3
 
@@ -19,5 +22,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.studybuddysystem }}
+          github_token: ${{ secrets.GITHUB_TOKEN }} # Используйте встроенный токен
           publish_dir: ./dist
+          publish_branch: gh-pages # Явно указываем ветку
